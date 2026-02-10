@@ -44,3 +44,10 @@ def update_movie(db: Session, movie_id: int, movie_update: MovieUpdate) -> Optio
     db.refresh(db_movie)
     return db_movie
 
+def delete_movie(db: Session, movie_id: int) -> bool:
+    db_movie = db.query(Movie).filter(Movie.id == movie_id).first()
+    if not db_movie:
+        return False
+    db.delete(db_movie)
+    db.commit()
+    return True
