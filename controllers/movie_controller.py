@@ -31,8 +31,3 @@ def list_movies(
 ):
     data = get_all_movies(db, page, page_size, title, release_year, genre)
     return {"status": "success", "data": data}
-
-@router.get("/{movie_id}", response_model=dict)
-def get_movie(movie_id: int, db: Session = Depends(get_db)):
-    data = get_movie_detail(db, movie_id)
-    return {"status": "success", "data": data}
