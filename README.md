@@ -45,12 +45,20 @@ docker compose up -d
 ## 2. Seed the Database
 
 # Copy files into the container
-docker cp scripts/seeddb.sql movie-postgres:/tmp/seeddb.sql
-docker cp scripts/tmdb_5000_movies.csv movie-postgres:/tmp/tmdb_5000_movies.csv
-docker cp scripts/tmdb_5000_credits.csv movie-postgres:/tmp/tmdb_5000_credits.csv
 
+```bash
+
+docker cp scripts/seeddb.sql [CONTAINER_NAME]:/tmp/seeddb.sql
+docker cp scripts/tmdb_5000_movies.csv [CONTAINER_NAME]:/tmp/tmdb_5000_movies.csv
+docker cp scripts/tmdb_5000_credits.csv [CONTAINER_NAME]:/tmp/tmdb_5000_credits.csv
+
+
+```
 # Run the seeding script
-docker exec -it movie-postgres psql -U postgres -d movie_db -f /tmp/seeddb.sql
+
+```bash
+
+docker exec -it [CONTAINER_NAME] psql -U postgres -d movie_db -f /tmp/seeddb.sql
 ```
 
 
