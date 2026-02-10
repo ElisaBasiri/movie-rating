@@ -90,3 +90,25 @@ def get_movies(
 
     return total, [(movie, avg, count) for movie, avg, count in results]
 
+def get_movie_by_id(db: Session, movie_id: int) -> Optional[Tuple[Movie, float, int]]:
+    avg_subq = select(
+        MovieRating.movie_id,
+        func.avg(MovieRating.score).label("average_rating"),
+        func.count(MovieRating.id).label("ratings_count")
+    ).group_by(MovieRating.movie_id).subquery()
+
+    query = select(
+        Movie,
+        func.coalesce(avg_subq.c.average_rating, 0),
+        func.coalesce(avg_subq.c.ratings_count, 0)
+    ).outerjoin(
+        avg_subq, Movie.id == avg_subq.c.movie_id
+    ).options(
+        joinedload(Movie.director), joinedload(Movie.genres)
+    ).where(Movie.id == movie_id)
+
+    result = db.execute(query).unique().first()
+    if not result:
+        return None
+    movie, avg, count = result
+    return movie, avg, count
