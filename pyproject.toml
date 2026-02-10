@@ -1,9 +1,9 @@
 [project]
-name = "r-ghombolali"
+name = "r-proj"
 version = "0.0.0"
 description = ""
 authors = [
-    {name = "AH",email = "aliheydari5179@gmail.com"}
+    {name = "rs",email = "roz@gmail.com"}
 ]
 requires-python = ">=3.11"
 dependencies = [

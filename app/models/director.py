@@ -1,0 +1,13 @@
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
+from app.db.session import Base
+
+class Director(Base):
+    __tablename__ = "directors"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, index=True, nullable=False)
+    birth_year = Column(Integer)
+    description = Column(String)
+
+    movies = relationship("Movie", back_populates="director")
