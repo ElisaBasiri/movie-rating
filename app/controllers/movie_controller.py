@@ -9,6 +9,23 @@ from app.schemas.rating import RatingCreate, RatingOut
 
 router = APIRouter(prefix="/api/v1/movies", tags=["movies"])
 
+@router.get("/", response_model=dict)
+def list_movies(
+    page: int = Query(1, ge=1),
+    page_size: int = Query(10, ge=1),
+    title: Optional[str] = Query(None),
+    release_year: Optional[int] = Query(None),
+    genre: Optional[str] = Query(None),
+    db: Session = Depends(get_db)
+):
+    data = get_all_movies(db, page, page_size, title, release_year, genre)
+    return {"status": "success", "data": data}
+
+@router.get("/{movie_id}", response_model=dict)
+def get_movie(movie_id: int, db: Session = Depends(get_db)):
+    data = get_movie_detail(db, movie_id)
+    return {"status": "success", "data": data}
+
 
 @router.post("/", response_model=dict, status_code=201)
 def create_movie(movie: MovieCreate, db: Session = Depends(get_db)):
@@ -28,3 +45,4 @@ def delete_movie(movie_id: int, db: Session = Depends(get_db)):
 def rate_movie(movie_id: int, rating: RatingCreate, db: Session = Depends(get_db)):
     data = add_rating(db, movie_id, rating)
     return {"status": "success", "data": data}
+

@@ -92,4 +92,3 @@ def update_existing_movie(db: Session, movie_id: int, movie_update: MovieUpdate)
 def delete_existing_movie(db: Session, movie_id: int):
     if not delete_movie(db, movie_id):
         raise NotFoundException("Movie not found")
-
