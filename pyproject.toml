@@ -1,0 +1,22 @@
+[project]
+name = "r-ghombolali"
+version = "0.0.0"
+description = ""
+authors = [
+    {name = "AH",email = "aliheydari5179@gmail.com"}
+]
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi (>=0.128.6,<0.129.0)",
+    "uvicorn (>=0.40.0,<0.41.0)",
+    "sqlalchemy (>=2.0.46,<3.0.0)",
+    "psycopg2-binary (>=2.9.11,<3.0.0)",
+    "alembic (>=1.18.3,<2.0.0)",
+    "pydantic (>=2.12.5,<3.0.0)",
+    "dotenv (>=0.9.9,<0.10.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
