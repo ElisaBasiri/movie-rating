@@ -54,4 +54,19 @@ def get_all_movies(
         ))
     return PaginatedResponse(page=page, page_size=page_size, total_items=total, items=items)
 
-
+def get_movie_detail(db: Session, movie_id: int) -> MovieDetailOut:
+    result = get_movie_by_id(db, movie_id)
+    if not result:
+        raise NotFoundException("Movie not found")
+    movie, avg_rating, ratings_count = result
+    return MovieDetailOut(
+        id=movie.id,
+        title=movie.title,
+        release_year=movie.release_year,
+        director=DirectorOut(id=movie.director.id, name=movie.director.name),
+        genres=[g.name for g in movie.genres],
+        average_rating=round(float(avg_rating), 1),
+        cast=movie.cast,
+        ratings_count=int(ratings_count),
+        updated_at=movie.updated_at
+    )
