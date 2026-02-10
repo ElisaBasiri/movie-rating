@@ -3,8 +3,10 @@ from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from app.controllers.movie_controller import router as movie_router
 from app.exceptions.custom_exceptions import NotFoundException, ValidationException
+from app.logging import setup_logging
 
 app = FastAPI()
+setup_logging()
 app.include_router(movie_router)
 
 @app.exception_handler(NotFoundException)
