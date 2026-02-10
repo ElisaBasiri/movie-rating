@@ -35,7 +35,11 @@ scripts/
 
 ## 1. Start with Docker Compose
 
-1.docker-compose up -d
+
+```bash
+
+docker compose up -d
+```
 
 
 ## 2. Seed the Database
